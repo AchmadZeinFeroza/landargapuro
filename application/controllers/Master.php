@@ -1313,6 +1313,7 @@ class Master extends CI_Controller
         cekajax();
         $simpan = $this->master_model;
         $post = $this->input->post();
+        $simpan->updatedatalandbank();exit;
         if ($simpan->updatedatalandbank()) {
             $data['success'] = true;
             $data['message'] = "Berhasil menyimpan data";

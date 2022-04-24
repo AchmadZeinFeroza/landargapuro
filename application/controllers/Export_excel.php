@@ -662,6 +662,251 @@ class Export_excel extends CI_Controller
         exit;
     }
 
+    public function excel_rekap_pembelian()
+    {
+        $data['dalamijin'] = $this->datarekap_evaluasi_pembelian('1');
+        $data['luarijin'] = $this->datarekap_evaluasi_pembelian('2');
+        $data['lokasi'] = $this->datarekap_evaluasi_pembelian('3');
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load(__DIR__ . '/file/laporan_rekap_evaluasi_pembelian.xlsx');
+        $i = 10;
+        $char = range('A', 'Z');
+        $no_char = 0;
+        $spreadsheet->getActiveSheet()->insertNewRowBefore($i, 1);
+        if($data['dalamijin'] !== null) {
+            $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('B' . $i, $char[$no_char].'. Proyek Dalam Ijin');
+            $spreadsheet->getActiveSheet()->mergeCells('B' . $i . ':C' . $i);
+            $no_char++;
+            $i++;
+            $spreadsheet->getActiveSheet()->insertNewRowBefore($i, 1);
+            $no = 1;
+            foreach ($data['dalamijin'] as $item) {
+                $spreadsheet->setActiveSheetIndex(0)
+                    ->setCellValue('B' . $i, $no++ . '')
+                    ->setCellValue('C' . $i, $item['nama_regional'])
+                    ->setCellValue('D' . $i, $item['bidtarget'])
+                    ->setCellValue('E' . $i, $item['luastarget'])
+                    ->setCellValue('F' . $i, $item['bidrealsebelum'])
+                    ->setCellValue('G' . $i, $item['luasrealsebelum'])
+                    ->setCellValue('H' . $i, $item['bidrealsesudah'])
+                    ->setCellValue('I' . $i, $item['luasrealsesudah'])
+                    ->setCellValue('J' . $i, ($item['bidrealsebelum']+$item['bidrealsesudah']). " ")
+                    ->setCellValue('K' . $i, ($item['luasrealsesudah']+$item['luasrealsebelum']). " ")
+                    ->setCellValue('L' . $i, ($item['bidrealsebelum']+$item['bidrealsesudah'])-$item['bidtarget'] . " ")
+                    ->setCellValue('M' . $i, ($item['luasrealsesudah']+$item['luasrealsebelum'])-$item['luastarget'] . " ")
+                    ->setCellValue('N' . $i, ($item['bidrealsebelum'] != 0 || $item['bidrealsesudah'] != 0 || $item['bidtarget'] != 0 || $item['luastarget'] != 0) ? number_format(((float)((($item['bidrealsebelum']+$item['bidrealsesudah'])-$item['bidtarget'])/$item['luastarget'])*100), 2, '.', ''). " " : "0" )
+                    ->setCellValue('O' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][0] ." ": 0 . " ")
+                    ->setCellValue('P' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][0] ." ": 0 . " ")
+                    ->setCellValue('Q' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][1] ." ": 0 . " ")
+                    ->setCellValue('R' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][1] ." ": 0 . " ")
+                    ->setCellValue('S' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][2] ." ": 0 . " ")
+                    ->setCellValue('T' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][2] ." ": 0 . " ")
+                    ->setCellValue('U' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][3] ." ": 0 . " ")
+                    ->setCellValue('V' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][3] ." ": 0 . " ")
+                    ->setCellValue('W' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][4] ." ": 0 . " ")
+                    ->setCellValue('X' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][4] ." ": 0 . " ")
+                    ->setCellValue('Y' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][5] ." ": 0 . " ")
+                    ->setCellValue('Z' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][5] ." ": 0 . " ")
+                    ->setCellValue('AA' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][6] ." ": 0 . " ")
+                    ->setCellValue('AB' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][6] ." ": 0 . " ")
+                    ->setCellValue('AC' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][7] ." ": 0 . " ")
+                    ->setCellValue('AD' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][7] ." ": 0 . " ")
+                    ->setCellValue('AE' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][8] ." ": 0 . " ")
+                    ->setCellValue('AF' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][8] ." ": 0 . " ")
+                    ->setCellValue('AG' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][9] ." ": 0 . " ")
+                    ->setCellValue('AH' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][9] ." ": 0 . " ")
+                    ->setCellValue('AI' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][10] ." ": 0 . " ")
+                    ->setCellValue('AJ' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][10] ." ": 0 . " ")
+                    ->setCellValue('AK' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][11] ." ": 0 . " ")
+                    ->setCellValue('AL' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][11] ." ": 0 . " ");
+                $i++;
+                $spreadsheet->getActiveSheet()->insertNewRowBefore($i, 1);
+            }
+        }
+
+        if($data['luarijin'] != null) {
+            $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('B' . $i, $char[$no_char].'. Proyek Luar Ijin');
+            $spreadsheet->getActiveSheet()->mergeCells('B' . $i . ':C' . $i);
+            $no_char++;
+            $i++;
+            $spreadsheet->getActiveSheet()->insertNewRowBefore($i, 1);
+            $no = 1;
+            foreach ($data['luarijin'] as $item) {
+                $spreadsheet->setActiveSheetIndex(0)
+                    ->setCellValue('B' . $i, $no++ . '')
+                    ->setCellValue('C' . $i, $item['nama_regional'])
+                    ->setCellValue('D' . $i, $item['bidtarget'])
+                    ->setCellValue('E' . $i, $item['luastarget'])
+                    ->setCellValue('F' . $i, $item['bidrealsebelum'])
+                    ->setCellValue('G' . $i, $item['luasrealsebelum'])
+                    ->setCellValue('H' . $i, $item['bidrealsesudah'])
+                    ->setCellValue('I' . $i, $item['luasrealsesudah'])
+                    ->setCellValue('J' . $i, ($item['bidrealsebelum']+$item['bidrealsesudah']). " ")
+                    ->setCellValue('K' . $i, ($item['luasrealsesudah']+$item['luasrealsebelum']). " ")
+                    ->setCellValue('L' . $i, ($item['bidrealsebelum']+$item['bidrealsesudah'])-$item['bidtarget'] . " ")
+                    ->setCellValue('M' . $i, ($item['luasrealsesudah']+$item['luasrealsebelum'])-$item['luastarget'] . " ")
+                    ->setCellValue('N' . $i, ($item['bidrealsebelum'] != 0 || $item['bidrealsesudah'] != 0 || $item['bidtarget'] != 0 || $item['luastarget'] != 0) ? number_format(((float)((($item['bidrealsebelum']+$item['bidrealsesudah'])-$item['bidtarget'])/$item['luastarget'])*100), 2, '.', ''). " " : "0" )
+                    ->setCellValue('O' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][0] ." ": 0 . " ")
+                    ->setCellValue('P' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][0] ." ": 0 . " ")
+                    ->setCellValue('Q' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][1] ." ": 0 . " ")
+                    ->setCellValue('R' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][1] ." ": 0 . " ")
+                    ->setCellValue('S' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][2] ." ": 0 . " ")
+                    ->setCellValue('T' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][2] ." ": 0 . " ")
+                    ->setCellValue('U' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][3] ." ": 0 . " ")
+                    ->setCellValue('V' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][3] ." ": 0 . " ")
+                    ->setCellValue('W' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][4] ." ": 0 . " ")
+                    ->setCellValue('X' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][4] ." ": 0 . " ")
+                    ->setCellValue('Y' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][5] ." ": 0 . " ")
+                    ->setCellValue('Z' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][5] ." ": 0 . " ")
+                    ->setCellValue('AA' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][6] ." ": 0 . " ")
+                    ->setCellValue('AB' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][6] ." ": 0 . " ")
+                    ->setCellValue('AC' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][7] ." ": 0 . " ")
+                    ->setCellValue('AD' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][7] ." ": 0 . " ")
+                    ->setCellValue('AE' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][8] ." ": 0 . " ")
+                    ->setCellValue('AF' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][8] ." ": 0 . " ")
+                    ->setCellValue('AG' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][9] ." ": 0 . " ")
+                    ->setCellValue('AH' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][9] ." ": 0 . " ")
+                    ->setCellValue('AI' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][10] ." ": 0 . " ")
+                    ->setCellValue('AJ' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][10] ." ": 0 . " ")
+                    ->setCellValue('AK' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][11] ." ": 0 . " ")
+                    ->setCellValue('AL' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][11] ." ": 0 . " ");
+                $i++;
+                $spreadsheet->getActiveSheet()->insertNewRowBefore($i, 1);
+            }
+        }
+
+        if($data['lokasi'] != null) {
+            $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('B' . $i, $char[$no_char].'. Proyek Lokasi');
+            $spreadsheet->getActiveSheet()->mergeCells('B' . $i . ':C' . $i);
+            $no_char++;
+            $i++;
+            $spreadsheet->getActiveSheet()->insertNewRowBefore($i, 1);
+            $no = 1;
+            foreach ($data['lokasi'] as $item) {
+                $spreadsheet->setActiveSheetIndex(0)
+                    ->setCellValue('B' . $i, $no++ . '')
+                    ->setCellValue('C' . $i, $item['nama_regional'])
+                    ->setCellValue('D' . $i, $item['bidtarget'])
+                    ->setCellValue('E' . $i, $item['luastarget'])
+                    ->setCellValue('F' . $i, $item['bidrealsebelum'])
+                    ->setCellValue('G' . $i, $item['luasrealsebelum'])
+                    ->setCellValue('H' . $i, $item['bidrealsesudah'])
+                    ->setCellValue('I' . $i, $item['luasrealsesudah'])
+                    ->setCellValue('J' . $i, ($item['bidrealsebelum']+$item['bidrealsesudah']). " ")
+                    ->setCellValue('K' . $i, ($item['luasrealsesudah']+$item['luasrealsebelum']). " ")
+                    ->setCellValue('L' . $i, ($item['bidrealsebelum']+$item['bidrealsesudah'])-$item['bidtarget'] . " ")
+                    ->setCellValue('M' . $i, ($item['luasrealsesudah']+$item['luasrealsebelum'])-$item['luastarget'] . " ")
+                    ->setCellValue('N' . $i, ($item['bidrealsebelum'] != 0 || $item['bidrealsesudah'] != 0 || $item['bidtarget'] != 0 || $item['luastarget'] != 0) ? number_format(((float)((($item['bidrealsebelum']+$item['bidrealsesudah'])-$item['bidtarget'])/$item['luastarget'])*100), 2, '.', ''). " " : "0" )
+                    ->setCellValue('O' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][0] ." ": 0 . " ")
+                    ->setCellValue('P' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][0] ." ": 0 . " ")
+                    ->setCellValue('Q' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][1] ." ": 0 . " ")
+                    ->setCellValue('R' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][1] ." ": 0 . " ")
+                    ->setCellValue('S' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][2] ." ": 0 . " ")
+                    ->setCellValue('T' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][2] ." ": 0 . " ")
+                    ->setCellValue('U' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][3] ." ": 0 . " ")
+                    ->setCellValue('V' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][3] ." ": 0 . " ")
+                    ->setCellValue('W' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][4] ." ": 0 . " ")
+                    ->setCellValue('X' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][4] ." ": 0 . " ")
+                    ->setCellValue('Y' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][5] ." ": 0 . " ")
+                    ->setCellValue('Z' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][5] ." ": 0 . " ")
+                    ->setCellValue('AA' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][6] ." ": 0 . " ")
+                    ->setCellValue('AB' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][6] ." ": 0 . " ")
+                    ->setCellValue('AC' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][7] ." ": 0 . " ")
+                    ->setCellValue('AD' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][7] ." ": 0 . " ")
+                    ->setCellValue('AE' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][8] ." ": 0 . " ")
+                    ->setCellValue('AF' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][8] ." ": 0 . " ")
+                    ->setCellValue('AG' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][9] ." ": 0 . " ")
+                    ->setCellValue('AH' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][9] ." ": 0 . " ")
+                    ->setCellValue('AI' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][10] ." ": 0 . " ")
+                    ->setCellValue('AJ' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][10] ." ": 0 . " ")
+                    ->setCellValue('AK' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['bid'][11] ." ": 0 . " ")
+                    ->setCellValue('AL' . $i, ($item['datatarget']['luas']!=0)? $item['datatarget']['luas'][11] ." ": 0 . " ");
+                $i++;
+                $spreadsheet->getActiveSheet()->insertNewRowBefore($i, 1);
+            }
+        }
+        $spreadsheet->getActiveSheet()->setTitle('Tanah Proyek Belum SHGB ');
+        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+        $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('B' . ($i + 3), 'Jember, ' . tgl_indo(date("Y-m-d")))
+            ->setCellValue('B' . ($i + 9), $this->excel[0]->nama)
+            ->setCellValue('N' . ($i + 9), $this->excel[1]->nama)
+            ->setCellValue('B' . ($i + 10), $this->excel[0]->posisi)
+            ->setCellValue('N' . ($i + 10), $this->excel[1]->posisi);
+        // Redirect output to a client’s web browser (Xlsx)
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="Laporan Rekap Pembelian Tanah.xlsx"');
+        header('Cache-Control: max-age=0');
+        // If you're serving to IE 9, then the following may be needed
+        header('Cache-Control: max-age=1');
+        // If you're serving to IE over SSL, then the following may be needed
+        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
+        header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+        header('Pragma: public'); // HTTP/1.0
+
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        ob_end_clean();
+        $writer->save('php://output');
+        exit;
+    }
+
+    public function datarekap_evaluasi_pembelian($jenis)
+    {
+        $get = $this->input->get();
+        $listdlmijin = $this->master_model->getperumahanbykategori($jenis);
+        $bulan = date('n');
+        $bidtarget = 0;
+        $luastarget = 0;
+        $data = array();
+        foreach ($listdlmijin as $r) {
+            $datatarget = $this->laporan_model->getdatatarget($r->id, date('Y'));
+            $bulanini1 = date('Y-m-01');
+            $time = strtotime($bulanini1);
+            $bulanini2 = date("Y-m-d", strtotime("+1 month", $time));
+            $bulanawal = date('Y-01-01');
+            $datarealisasisebelum = $this->laporan_model->getrealisasi($r->id, $bulanawal, $bulanini1);
+            $datarealisasisesudah = $this->laporan_model->getrealisasi($r->id, $bulanini1, $bulanini2);
+            if ($datatarget['luas'] == '') {
+            } else {
+                for ($i = 0; $i < $bulan; $i++) {
+                    $target = (int) $datatarget['bid'][$i];
+                    $bidtarget += $target;
+                    $luas = (int) $datatarget['luas'][$i];
+                    $luastarget += $luas;
+                }
+            }
+            $row = array();
+
+            // $row[] = $this->security->xss_clean($r->id);
+            $row['nama_regional'] = $this->security->xss_clean($r->nama_regional);
+            // $row[] = $this->security->xss_clean($r->lokasi);
+            $row['bidtarget'] = $this->security->xss_clean($bidtarget);
+            $row['luastarget'] = $this->security->xss_clean($luastarget);
+            $row['bidrealsebelum'] = $this->security->xss_clean($datarealisasisebelum['bid']);
+            if ($datarealisasisebelum['luas'] == '') {
+                $row['luasrealsebelum'] = $this->security->xss_clean(0);
+            } else {
+                $row['luasrealsebelum'] = $this->security->xss_clean($datarealisasisebelum['luas']);
+            }
+            $row['bidrealsesudah'] = $this->security->xss_clean($datarealisasisesudah['bid']);
+            if ($datarealisasisesudah['luas'] == '') {
+                $row['luasrealsesudah'] = $this->security->xss_clean(0);
+            } else {
+                $row['luasrealsesudah'] = $this->security->xss_clean($datarealisasisesudah['luas']);
+            }
+            $row['datatarget'] = $this->security->xss_clean($datatarget);
+            $row['status'] = $this->security->xss_clean($r->nama_status);
+            $luastarget = 0;
+            $bidtarget = 0;
+            $data[] = $row;
+        }
+        return $data;
+    }
+
     public function excellaporanbelumshgb($id = '')
     {
         $spreadsheet = new Spreadsheet();

@@ -72,15 +72,25 @@ class Laporan extends CI_Controller
     }
     public function laporan_evaluasi_pembelian()
     {
+        $get = $this->input->get();
         $data['perumahan'] = $this->db->order_by("id", "DESC")->get('master_regional')->result();
-        $data['cek'] = $this->datarekap_evaluasi_pembelian('1');
-        // echo "<pre>";
-        // print_r($data['cek']);
-        // echo "</pre>";
-        // exit;
-        $data['lokasi'] = $this->datarekap_evaluasi_pembelian('3');
-        $data['dalamijin'] = $this->datarekap_evaluasi_pembelian('1');
-        $data['luarijin'] = $this->datarekap_evaluasi_pembelian('2');
+        if(!empty($get['id_perumahan'])){
+            $data['status'] = $this->db->select("*")->from('master_regional')->join('master_status_regional', 'master_regional.status_regional = master_status_regional.id_status_regional', 'left')->where('id' , $get['id_perumahan'])->get()->result();
+            if($data['status'][0]->status_regional === "1"){
+                $data['dalamijin'] = $this->datarekap_evaluasi_pembelian($data['status'][0]->status_regional);
+            }elseif($data['status'][0]->status_regional === "2"){
+                $data['luarijin'] = $this->datarekap_evaluasi_pembelian($data['status'][0]->status_regional);
+            }else{
+                $data['lokasi'] = $this->datarekap_evaluasi_pembelian($data['status'][0]->status_regional);
+            }
+            $data['id'] = $get['id_perumahan'];
+            $data['nama_regional'] = $this->db->select('nama_regional')->from('master_regional')->where('id' , $get['id_perumahan'])->get()->result();
+
+        }else {
+            $data['lokasi'] = $this->datarekap_evaluasi_pembelian('3');
+            $data['dalamijin'] = $this->datarekap_evaluasi_pembelian('1');
+            $data['luarijin'] = $this->datarekap_evaluasi_pembelian('2');
+        }
         $this->load->view('member/laporan/laporan2_rekap', $data);
 
     }

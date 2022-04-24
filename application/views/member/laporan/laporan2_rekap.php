@@ -41,7 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <header class="panel-heading">    
             <div class="row show-grid">
                 <div class="col-md-8" align="left"><h2 class="panel-title"></h2></div>
-            <form action="<?php echo site_url('Export_excel/laporan_rincian_ijin_lokasi/') ?>" method="get">
+            <form action="<?php echo site_url('Export_excel/excel_rekap_pembelian/') ?>" method="get">
 
                 <div class="row" style="width: 100%; padding: 4px;margin-left: 0%;">
                     <label class="col-sm-1 control-label">Lokasi<span class="required">*</span></label>
@@ -50,6 +50,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="form-group nama_target">
                             <select data-plugin-selectTwo class="form-control" onchange="refresh()" id="id_perumahan"
                                 name="id_perumahan">
+                                <?php if(isset($nama_regional)):?>
+                                    <option value="<?php echo $id; ?>"><?php echo $nama_regional[0]->nama_regional; ?></option>
+                                <?php endif; ?>
                                 <option value="">Semua Lokasi</option>
                                 <?php foreach ($perumahan as $aa): ?>
                                     <option value="<?php echo $aa->id; ?>"><?php echo $aa->nama_regional; ?></option>
@@ -58,7 +61,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <button class="btn btn-primary" type="submit"   >
+                        <button class="btn btn-primary" type="submit">
                         <i class="fa fa-print"></i>cetak </button>
                     </div>
                 </div>
@@ -139,6 +142,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </tr>
                     </thead>
                     <tbody>
+                        <?php if(isset($dalamijin)) {?>
                         <tr>
                             <td></td>
                             <td>A. IP PROYEK DALAM IJIN</td>
@@ -257,6 +261,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <td></td>
                                 <td></td>
                             </tr>
+                            <?php }?>
+                            <?php if(isset($luarijin)) {?>
                              <tr>
                             <td></td>
                             <td>B. IP PROYEK LUAR IJIN</td>
@@ -378,6 +384,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <td></td>
                                 <td></td>
                             </tr>
+                            <?php }?>
+                            <?php if(isset($lokasi)) { ?>
                              <tr>
                             <td></td>
                             <td>C. IP PROYEK LOKASI</td>
@@ -495,6 +503,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <td></td>
                                 <td></td>
                             </tr>
+                            <?php }?>
                         </tbody>
                         <tfoot>
                             <tr>
@@ -988,11 +997,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="<?php echo base_url()?>assets/javascripts/admin.min.js"></script>
 <script src="<?php echo base_url()?>assets/vendor/pnotify/pnotify.custom.js"></script>
 <script src="<?php echo base_url()?>assets/javascripts/theme.init.js"></script> 
-<!-- <script type="text/javascript">
-	$(document).ready(function(){
-		$('.data').DataTable();
-	});
-</script> -->
+<script>
+    function refresh(){
+        var cek = '<?= site_url('laporan/laporan_evaluasi_pembelian/')?>';
+        if($('#id_perumahan').val() !== ""){
+            location.replace( cek += "?id_perumahan="+ $('#id_perumahan').val()+"");
+        }else{
+            location.replace(cek);
+        }
+    }
+</script>
 
 </body>
 </html>

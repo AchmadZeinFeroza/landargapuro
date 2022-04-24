@@ -464,6 +464,7 @@ class Master_model extends CI_Model
     //CRUD pembeli end
     public function getperumahanbykategori($status)
     {
+        $get = $this->input->get();
         $this->db->select('*');
         $this->db->from('master_regional');
         $this->db->join('master_status_regional', 'master_regional.status_regional = master_status_regional.id_status_regional', 'left');
@@ -472,6 +473,9 @@ class Master_model extends CI_Model
         $this->db->join('desa', 'desa.id_desa = master_regional.lokasi', 'left');
         if ($status != '') {
             $this->db->where('status_regional', $status);
+        }
+        if(isset($get['id_perumahan'])){
+            $this->db->where('id', $get['id_perumahan']);
         }
         return $this->db->get()->result();
     }
@@ -1299,7 +1303,7 @@ class Master_model extends CI_Model
         $this->lain = bilanganbulat($post["lain"]);
         $this->keterangan_lain = $post["keterangan_lain"];
         $this->keterangan = $post["keterangan"];
-        $this->id_posisi_surat = ($post["id_posisi_surat"]);
+        // $this->id_posisi_surat = ($post["id_posisi_surat"]);
         $this->status_order_akta = ($post["status_order_akta"]);
         $this->jenis_pengalihan_hak = ($post["jenis_pengalihan_hak"]);
         $this->status_teknik = ($post["status_teknik"]);

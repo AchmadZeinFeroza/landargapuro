@@ -127,10 +127,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div>
                     <div class="form-group nama_penjual">
-                        <label class="col-sm-3 control-label">Data Surat Tanah 1</span></label>
+                        <label class="col-sm-3 control-label">Data Surat Tanah</span></label>
 
                         <div class="col-sm-5">
-                            <select data-plugin-selectTwo class="form-control" id="status_surat_tanah1" required name="status_surat_tanah1">  
+                            <select data-plugin-selectTwo class="form-control" id="status_surat_tanah1" required name="status_surat_tanah">  
                                 <option value="">Pilih Jenis</option>
                                 <?php foreach ($sertifikat_tanah as $aa): ?>
                                     <option value="<?php echo $aa->id_sertifikat_tanah;?>"><?php echo $aa->kode_sertifikat;?> / <?php echo $aa->nama_sertifikat;?></option>
@@ -138,24 +138,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </select> 
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" name="keterangan1" class="form-control" id="keterangan1" placeholder="keterangan 1"  />
+                            <input type="text" name="keterangan1" class="form-control" id="keterangan1" placeholder="keterangan"  />
                         </div>
                     </div>
-                    <div class="form-group nama_penjual">
-                        <label class="col-sm-3 control-label">Data Surat Tanah 2</span></label>
 
-                        <div class="col-sm-5">
-                            <select data-plugin-selectTwo class="form-control" required id="status_surat_tanah2" name="status_surat_tanah2">  
-                                <option value="">Pilih Jenis</option>
-                                <?php foreach ($sertifikat_tanah as $aa): ?>
-                                    <option value="<?php echo $aa->id_sertifikat_tanah;?>"><?php echo $aa->kode_sertifikat;?> / <?php echo $aa->nama_sertifikat;?></option>
-                                <?php endforeach; ?>
-                            </select> 
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="text" name="keterangan2" id="keterangan2" class="form-control" placeholder="Keterangan 2"  />
-                        </div>
-                    </div>
                     <div class="form-group total_harga_pengalihan">
                         <label class="col-sm-3 control-label">Total Harga Pengalihan</span></label>
                         <div class="col-sm-9">
@@ -356,9 +342,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                document.getElementById("harga_perm").setAttribute('value', item.harga_permtampil); 
                document.getElementById("keterangan").value = item.keterangan; 
                document.getElementById("keterangan_lain").value = item.keterangan_lain; 
-               document.getElementById("keterangan1").setAttribute('value', item.keterangan1); 
-               document.getElementById("keterangan2").setAttribute('value', item.keterangan2); 
-               $("#status_surat_tanah2").select2("val", item.status_surat_tanah2);   
+               document.getElementById("keterangan1").setAttribute('value', item.keterangan1);   
                $("#status_surat_tanah1").select2("val", item.status_surat_tanah1);    
                $("#status_order_akta").select2("val", item.status_order_akta);   
                $("#jenis_pengalihan_hak").select2("val", item.jenis_pengalihan_hak);   
@@ -530,10 +514,8 @@ function detail(elem){
                 datarow+="<tr><td>tanggal_pembelian</td><td>: "+item.tanggal_pembelian+"</td></tr>";
                 datarow+="<tr><td>nama_penjual</td><td>: "+item.nama_penjual+"</td></tr>";
                 datarow+="<tr><td>Atas Nama</td><td>: "+item.nama_surat_tanah+"</td></tr>";
-                datarow+="<tr><td>Jenis Surat 1</td><td>: "+item.nama_sertifikat1+"</td></tr>";
-                datarow+="<tr><td>Keterangan 1</td><td>: "+item.keterangan1+"</td></tr>";
-                datarow+="<tr><td>Jenis Surat 2</td><td>: "+item.nama_sertifikat2+"</td></tr>";
-                datarow+="<tr><td>Keterangan 2</td><td>: "+item.keterangan2+"</td></tr>";
+                datarow+="<tr><td>Jenis Surat</td><td>: "+item.nama_sertifikat1+"</td></tr>";
+                datarow+="<tr><td>Keterangan</td><td>: "+item.keterangan1+"</td></tr>";
                 datarow+="<tr><td>no_gambar</td><td>: "+item.no_gambar+"</td></tr>";
                 datarow+="<tr><td>jumlah_bidang</td><td>: "+item.jumlah_bidang+"</td></tr>";
                 datarow+="<tr><td>luas_surat</td><td>: "+item.luas_surat+"</td></tr>";
