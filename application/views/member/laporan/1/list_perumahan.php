@@ -57,7 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div>
             <div class="col-sm-2">
-                <a class="btn btn-primary btn-block btn-hover " href="http://localhost/landargopuro/Export_excel/laporan_evaluasi_rekap_proses_ijin_lokasi/"><i class="fa fa-print"></i>  cetak </a>
+                <a class="btn btn-primary btn-block btn-hover " id="cetak" href="http://localhost/landargopuro/Export_excel/laporan_evaluasi_rekap_proses_ijin_lokasi/"><i class="fa fa-print"></i>  cetak </a>
             </div>
         </div>
         
@@ -120,21 +120,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="<?php echo base_url()?>assets/vendor/pnotify/pnotify.custom.js"></script>
 <script src="<?php echo base_url()?>assets/javascripts/theme.init.js"></script> 
 <script type="text/javascript"> 
-    var tablekategori = $('#kategoridata').DataTable({  
-        "serverSide": true, 
-        "order": [], 
-        "ajax": {
-            "url": "<?php echo base_url()?>laporan/datarekap_proses_ijin",
-            "type": "GET"
-        }, 
-        "columnDefs": [
-        { 
-            "targets": [ 0 ], 
-            "orderable": false, 
-        },
-        ],  
-    }); 
-   
+    
+    $(document).ready(function(){
+        refresh();
+        
+    });
+    function refresh(){
+        table = $('#kategoridata').DataTable();
+        table.destroy();
+        $('#kategoridata').DataTable({  
+            "serverSide": true, 
+            "order": [], 
+            "ajax": {
+                "url": "<?php echo base_url()?>laporan/datarekap_proses_ijin",
+                "type": "GET",
+                "data": {
+                    id_perumahan: function() { return $('#id_perumahan').val() },
+                }
+            }, 
+            "columnDefs": [
+            { 
+                "targets": [ 0 ], 
+                "orderable": false, 
+            },
+            ],  
+        }); 
+        $("#cetak").attr("href", "<?php echo base_url()?>Export_excel/laporan_evaluasi_rekap_proses_ijin_lokasi/?id_perumahan="+$('#id_perumahan').val())
+    }
+    
+    // 
 </script>
 </body>
 </html>

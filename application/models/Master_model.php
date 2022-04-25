@@ -512,6 +512,9 @@ class Master_model extends CI_Model
             }
             $i++;
         }
+        if(isset($get['id_perumahan']) && $get['id_perumahan'] != ""){
+            $this->db->where('id', $get['id_perumahan']);
+        }
         if (isset($get['order'])) {
             $this->db->order_by($this->column_order_kategori[$get['order']['0']['column']], $get['order']['0']['dir']);
         } else if (isset($this->order_kategori)) {
@@ -1910,12 +1913,16 @@ class Master_model extends CI_Model
     }
     public function rekap_proses_ijin()
     {
+        $get = $this->input->get();
         $this->db->select('*');
         $this->db->from('master_regional');
         $this->db->join('master_status_regional', 'master_regional.status_regional = master_status_regional.id_status_regional', 'left');
         $this->db->join('kabupaten', 'kabupaten.id_kabupaten = master_regional.id_kabupaten', 'left');
         $this->db->join('kecamatan', 'kecamatan.id_kecamatan = master_regional.id_kecamatan', 'left');
         $this->db->join('desa', 'desa.id_desa = master_regional.lokasi', 'left');
+        if(isset($get['id_perumahan']) && $get['id_perumahan'] != "" ){
+            $this->db->where('id', $get['id_perumahan']);
+        }
         $query = $this->db->get();
         return $query->result();
     }

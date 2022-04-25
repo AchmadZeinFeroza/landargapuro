@@ -1539,6 +1539,7 @@ class Export_excel extends CI_Controller
 
     public function laporan_evaluasi_rekap_proses_ijin_lokasi()
     {
+        $get = $this->input->get();
         $list = $this->master_model->rekap_proses_ijin();
         $jumlahsisa = 0;
         $luassisa = 0;
@@ -1654,7 +1655,7 @@ class Export_excel extends CI_Controller
         $spreadsheet->setActiveSheetIndex(0);
         // Redirect output to a client’s web browser (Xlsx)
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="Laporan asdRekap Ijin Lokasi.xlsx"');
+        header('Content-Disposition: attachment;filename="Laporan Rekap Ijin Lokasi.xlsx"');
         header('Cache-Control: max-age=0');
         // If you're serving to IE 9, then the following may be needed
         header('Cache-Control: max-age=1');
