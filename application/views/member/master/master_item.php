@@ -66,7 +66,7 @@ echo level_user('master', 'items', $this->session->userdata('kategori'), 'add') 
                         <div class="form-group nama_target">
                             <select data-plugin-selectTwo class="form-control" onchange="refresh()" id="status"
                                 name="status">
-                                <option value="">Semua Lokasi</option>
+                                <option value="">Semua Status</option>
                                 <?php foreach ($status as $aa): ?>
                             <option value="<?php echo $aa['id_status_regional']; ?>"><?php echo $aa['nama_status']; ?></option>
                         <?php endforeach;?>
@@ -74,10 +74,10 @@ echo level_user('master', 'items', $this->session->userdata('kategori'), 'add') 
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <input type="text" name="firstdate" id="firstdate" class="form-control tanggal" onchange="refresh()" data-plugin-datepicker placeholder="Tanggal Awal"/>
+                        <input type="text" name="firstdate" id="firstdate" class="form-control tanggal" onchange="refresh()" data-plugin-datepicker placeholder="Tanggal Awal" autocomplete="off"/>
                     </div>
                     <div class="col-sm-2">
-                        <input type="text" name="lastdate" id="lastdate" class="form-control tanggal" onchange="refresh()"  data-plugin-datepicker placeholder="Tanggal Akhir"/>
+                        <input type="text" name="lastdate" id="lastdate" class="form-control tanggal" onchange="refresh()"  data-plugin-datepicker placeholder="Tanggal Akhir" autocomplete="off"/>
                     </div>
                     <div class="col-sm-2">
                         <button class="btn btn-primary btn-hover pr-5" type="submit">
@@ -103,10 +103,10 @@ echo level_user('master', 'items', $this->session->userdata('kategori'), 'add') 
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <input type="text" name="firstdate" id="firstdate" class="form-control tanggal" data-plugin-datepicker placeholder="Tanggal Awal"/>
+                        <input type="text" name="firstdate" id="firstdate" class="form-control tanggal" data-plugin-datepicker placeholder="Tanggal Awal" autocomplete="off"/>
                     </div>
                     <div class="col-sm-2">
-                        <input type="text" name="lastdate" id="lastdate" class="form-control tanggal"  data-plugin-datepicker placeholder="Tanggal Akhir"/>
+                        <input type="text" name="lastdate" id="lastdate" class="form-control tanggal"  data-plugin-datepicker placeholder="Tanggal Akhir" autocomplete="off"/>
                     </div>
                     <div class="col-sm-2">
                         <button class="btn btn-primary btn-hover pr-5" type="submit">

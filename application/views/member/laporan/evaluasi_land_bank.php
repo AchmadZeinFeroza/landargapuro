@@ -75,8 +75,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <thead>
                         <tr>
                             <th colspan="2"></th>
-                            <th colspan="3" style="text-align: center;vertical-align: middle; ">LAND BANK s/d 2019</th>
-                            <th colspan="3" style="text-align: center;vertical-align: middle;">LAND BANK s/d 2020 </th>
+                            <th colspan="3" style="text-align: center;vertical-align: middle; ">LAND BANK s/d <?= (date('Y')-1)?></th>
+                            <th colspan="3" style="text-align: center;vertical-align: middle;">LAND BANK s/d <?= (date('Y'))?> </th>
                             <th colspan="3" style="text-align: center;vertical-align: middle;">TOTAL LAND BANK</th>
                             <th colspan="3" style="text-align: center;vertical-align: middle;">SERAH TERIMA TECHNIC</th>
                             <th colspan="3" style="text-align: center;vertical-align: middle;">SISA LAND BANK</th>

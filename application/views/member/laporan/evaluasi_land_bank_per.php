@@ -394,6 +394,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         } else { 
             $('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
             PNotify.removeAll();
+            refresh();
             document.getElementById("submitformEdit").removeAttribute('disabled'); 
             $('#editData').modal('hide');        
             document.getElementById("FormulirEdit").reset();    

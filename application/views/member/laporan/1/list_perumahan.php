@@ -57,7 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div>
             <div class="col-sm-2">
-                <a class="btn btn-primary btn-block btn-hover " id="cetak" href="http://localhost/landargopuro/Export_excel/laporan_evaluasi_rekap_proses_ijin_lokasi/"><i class="fa fa-print"></i>  cetak </a>
+                <a class="btn btn-primary btn-block btn-hover " id="cetak" href="<?php echo base_url()?>Export_excel/laporan_evaluasi_rekap_proses_ijin_lokasi/"><i class="fa fa-print"></i>  cetak </a>
             </div>
         </div>
         

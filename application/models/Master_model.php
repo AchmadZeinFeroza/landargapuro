@@ -1291,25 +1291,29 @@ class Master_model extends CI_Model
     public function updatedatalandbank()
     {
         $post = $this->input->post();
-        $this->nama_item = ($post["nama_item"]);
+        $this->nama_penjual = ($post["nama_penjual"]);
+        $this->nama_surat_tanah = ($post["nama_surat_tanah"]);
         $this->tanggal_pembelian = ($post["tanggal_pembelian"]);
-        $this->status_surat_tanah = ($post["status_surat_tanah"]);
+        $this->status_surat_tanah1 = ($post["status_surat_tanah"]);
+        $this->keterangan1 = $post["keterangan1"];
         $this->total_harga_pengalihan = bilanganbulat($post["total_harga_pengalihan"]);
         $this->nama_makelar = ($post["nama_makelar"]);
         $this->nilai = bilanganbulat($post["nilai"]);
+        $this->status_order_akta = ($post["status_order_akta"]);
         $this->tanggal_pengalihan = ($post["tanggal_pengalihan"]);
         $this->akta_pengalihan = ($post["akta_pengalihan"]);
+        $this->jenis_pengalihan_hak = ($post["jenis_pengalihan_hak"]);
         $this->nama_pengalihan = ($post["nama_pengalihan"]);
-        $this->pematangan = bilanganbulat($post["pematangan"]);
-        $this->ganti_rugi = bilanganbulat($post["ganti_rugi"]);
-        $this->pbb = bilanganbulat($post["pbb"]);
         $this->lain = bilanganbulat($post["lain"]);
         $this->keterangan_lain = $post["keterangan_lain"];
-        $this->keterangan = $post["keterangan"];
-        // $this->id_posisi_surat = ($post["id_posisi_surat"]);
-        $this->status_order_akta = ($post["status_order_akta"]);
-        $this->jenis_pengalihan_hak = ($post["jenis_pengalihan_hak"]);
+        // $this->harga_perm = bilanganbulat($post["harga_perm"]);
         $this->status_teknik = ($post["status_teknik"]);
+        $this->keterangan = ($post["keterangan"]);
+        // $this->pematangan = bilanganbulat($post["pematangan"]);
+        // $this->ganti_rugi = bilanganbulat($post["ganti_rugi"]);
+        // $this->pbb = bilanganbulat($post["pbb"]);
+        // $this->nama_item = ($post["nama_item"]);
+        // // $this->id_posisi_surat = ($post["id_posisi_surat"]);
         return $this->db->update("master_item", $this, array('kode_item' => $post['idd']));
     }
     private function _uploadGambarProduk()

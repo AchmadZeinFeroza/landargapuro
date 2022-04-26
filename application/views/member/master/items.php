@@ -503,7 +503,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     </div>
                 </div>
                 <div class="form-group nama_penjual">
-                    <label class="col-sm-3 control-label">Data Surat Tanah 1</span></label>
+                    <label class="col-sm-3 control-label">Data Surat Tanah</span></label>
 
                     <div class="col-sm-5">
                         <select data-plugin-selectTwo class="form-control" id="status_surat_tanah1" required name="status_surat_tanah1">
@@ -514,22 +514,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         </select>
                     </div>
                     <div class="col-sm-4">
-                        <input type="text" name="keterangan1" class="form-control" id="keterangan1" placeholder="keterangan 1"  />
-                    </div>
-                </div>
-                <div class="form-group nama_penjual">
-                    <label class="col-sm-3 control-label">Data Surat Tanah 2</span></label>
-
-                    <div class="col-sm-5">
-                        <select data-plugin-selectTwo class="form-control" required id="status_surat_tanah2" name="status_surat_tanah2">
-                            <option value="">Pilih Jenis</option>
-                            <?php foreach ($sertifikat_tanah as $aa): ?>
-                                <option value="<?php echo $aa->id_sertifikat_tanah; ?>"><?php echo $aa->kode_sertifikat; ?> / <?php echo $aa->nama_sertifikat; ?></option>
-                            <?php endforeach;?>
-                        </select>
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" name="keterangan2" id="keterangan2" class="form-control" placeholder="Keterangan 2"  />
+                        <input type="text" name="keterangan1" class="form-control" id="keterangan1" placeholder="keterangan"  />
                     </div>
                 </div>
                 <div class="form-group no_gambar">
@@ -970,7 +955,6 @@ e.preventDefault();
              document.getElementById("nama_penjual").setAttribute('value', item.nama_penjual);
              document.getElementById("nama_surat_tanah").setAttribute('value', item.nama_surat_tanah);
              document.getElementById("keterangan1").setAttribute('value', item.keterangan1);
-             document.getElementById("keterangan2").setAttribute('value', item.keterangan2);
              document.getElementById("no_gambar").setAttribute('value', item.no_gambar);
              document.getElementById("jumlah_bidang").setAttribute('value', item.jumlah_bidang);
              document.getElementById("luas_surat").setAttribute('value', item.luas_surat);
@@ -978,7 +962,7 @@ e.preventDefault();
              document.getElementById("no_pbb").setAttribute('value', item.no_pbb);
              document.getElementById("luas_pbb_bangunan").setAttribute('value', item.luas_pbb_bangunan);
              document.getElementById("njop_bangunan").setAttribute('value', item.njop_bangunan);
-  document.getElementById("luas_pbb_bumi").setAttribute('value', item.luas_pbb_bumi);
+             document.getElementById("luas_pbb_bumi").setAttribute('value', item.luas_pbb_bumi);
              document.getElementById("njop_bumi").setAttribute('value', item.njop_bumi);
              document.getElementById("total_harga_pengalihan").setAttribute('value', item.total_harga_pengalihan);
              document.getElementById("nama_makelar").setAttribute('value', item.nama_makelar);
@@ -1036,7 +1020,7 @@ e.preventDefault();
     } else {
         $('input[name=<?php echo $this->security->get_csrf_token_name(); ?>]').val(data.token);
         PNotify.removeAll();
-        tableitems.ajax.reload();
+        refresh();
         document.getElementById("submitformEdit").removeAttribute('disabled');
         $('#editData').modal('hide');
         document.getElementById("FormulirEdit").reset();
@@ -1079,8 +1063,6 @@ function detail(elem){
                 datarow+="<tr><td>Atas Nama</td><td>: "+item.nama_surat_tanah+"</td></tr>";
                 datarow+="<tr><td>Jenis Surat 1</td><td>: "+item.nama_sertifikat1+"</td></tr>";
                 datarow+="<tr><td>Keterangan 1</td><td>: "+item.keterangan1+"</td></tr>";
-                datarow+="<tr><td>Jenis Surat 2</td><td>: "+item.nama_sertifikat2+"</td></tr>";
-                datarow+="<tr><td>Keterangan 2</td><td>: "+item.keterangan2+"</td></tr>";
                 datarow+="<tr><td>no_gambar</td><td>: "+item.no_gambar+"</td></tr>";
                 datarow+="<tr><td>jumlah_bidang</td><td>: "+item.jumlah_bidang+"</td></tr>";
                 datarow+="<tr><td>luas_surat</td><td>: "+item.luas_surat+"</td></tr>";
